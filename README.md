@@ -26,9 +26,16 @@ plots.py
 * implements triplanar preview of registrations and matched lesions
 
 inside repository root/examples:
-run_{some data}.py
+run_simulated_data.py
 * import RALMAC
+
+* load inputs: image_A, image_B, coordinate_list_A, coordinate_list_B
+* run everything...
+* outputs: [ (index of element in A A1,B1), (A2,B2), (None,B3), (A4,None) ] each element represetns unique lesion
+  
 * loads test dicom images, and coordinate lists
 * runs RALMAC.registration
 * runs RALMAC.transform_coordinates
 * runs RALMAC.match
+
+
