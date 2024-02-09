@@ -3,6 +3,9 @@ Registration-based Automated Lesion Matching and Correspondence
 
 inside repository root/RALMAC:
 
+processing.py
+* implements image preprocessing functions for registration
+
 registration.py
 * implements image registration
 * transformation = register(sitk_fixed, sitk_moving)
