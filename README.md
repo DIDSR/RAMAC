@@ -1,6 +1,9 @@
 # RALMAC
 Registration-based Automated Lesion Matching and Correspondence
 
+Subrata Mukherjee
+Qian Cao
+
 inside repository root/RALMAC:
 
 processing.py
