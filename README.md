@@ -2,7 +2,7 @@ Registration-based Automated Lesion Matching and Correspondence (RALMAC) is a to
 
 It is originally developed as part of the FDA-Novartis collaboration.
 
-##### 
+######
 
 inside repository root/RALMAC:
 
