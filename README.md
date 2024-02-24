@@ -1,7 +1,8 @@
-# RALMAC
-Registration-based Automated Lesion Matching and Correspondence
+Registration-based Automated Lesion Matching and Correspondence (RALMAC) is a tool for identify corresponding regions of interest in imaging data from large longitudinal imaging studies. 
 
-Subrata Mukherjee, Qian Cao
+It is originally developed as part of the FDA-Novartis collaboration.
+
+##### 
 
 inside repository root/RALMAC:
 
@@ -40,4 +41,4 @@ run_simulated_data.py
 * runs RALMAC.transform_coordinates
 * runs RALMAC.match
 
-
+Subrata Mukherjee, Qian Cao
