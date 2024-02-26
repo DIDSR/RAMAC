@@ -1,4 +1,4 @@
-Registration-based Automated Lesion Matching and Correspondence (RALMAC) is a tool for identify corresponding regions of interest in imaging data from large longitudinal imaging studies. 
+Registration-based Automated Matching and Correspondence (RAMAC) is a tool for identify corresponding regions of interest in imaging data from large longitudinal imaging studies. 
 
 It is originally developed as part of the FDA-Novartis collaboration.
 

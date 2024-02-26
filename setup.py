@@ -4,11 +4,11 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="RALMAC",
+    name="RAMAC",
     version="0.0.1.dev1",
     author="Qian Cao, Subrata Mukherjee",
     author_email="qian.cao@fda.hhs.gov",
-    description="Registration-based Automatic Lesion Matching and Correspondence",
+    description="Registration-based Automatic Matching and Correspondence",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/DIDSR/RALMAC",
@@ -20,6 +20,7 @@ setuptools.setup(
     ],
     python_requires='>=3.6',
     install_requires=['numpy',
+                      'pandas',
                       'SimpleITK',
                       'matplotlib',
                       'spectral']
