@@ -11,7 +11,7 @@ setuptools.setup(
     description="Registration-based Automatic Matching and Correspondence",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/DIDSR/RALMAC",
+    url="https://github.com/DIDSR/RAMAC",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
