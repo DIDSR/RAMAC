@@ -35,6 +35,23 @@ def numpy_point_to_sitk(xyz, sitk_image):
     
     return sitk_xyz
 
+def numpy_points_to_sitk(xyzs, sitk_image):
+    """
+    Iteratively applies numpy_point_to_sitk to a list of coordinates
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    sitk_xyzs = []
+    
+    for ind, xyz in enumerate(xyzs):
+        sitk_xyzs.append(numpy_point_to_sitk(xyz, sitk_image))
+        
+    return sitk_xyzs
+
 def read_lesion_csv(file_path):
     """
     Reads a csv file of point coordinates and returns them as pd.DataFrame

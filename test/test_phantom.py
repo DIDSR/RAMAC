@@ -8,7 +8,11 @@ Created on Sun Feb 25 20:17:08 2024
 import numpy as np
 import SimpleITK as sitk
 from phantominator import shepp_logan
-from ..ramac.utils import *
+
+# TODO: fix to use relative imports
+import sys
+sys.path.append("../ramac")
+from utils import numpy_array_to_sitk, numpy_points_to_sitk
 
 def insert_sphere_in_numpy_array(arr,centroid,radius,intensity):
     """
@@ -42,12 +46,39 @@ def create_phantom_shepplogan():
     # create shepp logan test phantom
     phantom = shepp_logan(phantom_shape)
     
-    # lesion coordinates
+    # lesion parameters
     lesion_coords = [(50, 64, 100), (80, 64, 20)]
     lesion_radii = [3, 8]
     lesion_intensity = [0.5, 1]
     
+    # inserts lesion
     for ind, lesions in enumerate(lesion_coords):
-        phantom = insert_sphere_in_numpy_array(phantom,lesion_coords[ind],lesion_radii[ind])
+        phantom = insert_sphere_in_numpy_array(phantom,lesion_coords[ind],lesion_radii[ind],lesion_intensity[ind])
         
+    phantom = numpy_array_to_sitk(phantom)
+    lesions = numpy_points_to_sitk(lesion_coords,phantom)
+        
+    return phantom, lesions
+
+def transform_phantom(phantom, lesions):
+    """
+    Takes as input phantom and lesions generated from create_phantom_... and applies known rotation and translation in sitk
     
+    Parameters
+    ----------
+    phantom : TYPE
+        DESCRIPTION.
+    lesions : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    transformed_phantom
+    
+    transformed_lesions
+    
+    known_transformation
+
+    """
+    
+    pass
