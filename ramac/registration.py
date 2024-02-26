@@ -37,6 +37,22 @@ def _setup_rigid_registration():
 
 def register_image(fixed: sitk.Image,
                    moving: sitk.Image) -> sitk.Transform:
+    """
+    Perform registration of fixed and moving images, returns resulting transformation.
+
+    Parameters
+    ----------
+    fixed : sitk.Image
+        DESCRIPTION.
+    moving : sitk.Image
+        DESCRIPTION.
+
+    Returns
+    -------
+    outTx : TYPE
+        DESCRIPTION.
+
+    """
     
     # Set up rigid registration parameters
     R = _setup_rigid_registration()
@@ -55,10 +71,40 @@ def register_image(fixed: sitk.Image,
     
     return outTx
 
-def transform_image(moving, transform):
-    
-    pass
+def transform_image(moving: sitk.Image, fixed: sitk.Image, transform: sitk.Transform) -> sitk.Image:
+    """
+    Transform moving image according to input transform, needs fixed image as the reference image.
 
-def transform_point(point, transform):
+    Parameters
+    ----------
+    moving : sitk.Image
+        DESCRIPTION.
+    transform : sitk.Transform
+        DESCRIPTION.
+
+    Returns
+    -------
+    Resampeld moving image: sitk.Image
+
+    """
     
-    pass
+    # Create resampler
+    resampler = sitk.ResampleImageFilter()
+    resampler.SetReferenceImage(fixed)
+    resampler.SetInterpolator(sitk.sitkLinear)
+    resampler.SetDefaultPixelValue(0)
+    resampler.SetTransform(transform)
+    
+    # Resampled image
+    out = resampler.Execute(moving)
+    
+    return out
+
+def transform_point(point: tuple, transform: sitk.Transform):
+    """
+    Transform a point in physical coordinates using sitk.Transform, returns transformed point in physical coordinates
+    """
+    
+    transformed_point = sitk.TransformPoint(point)
+    
+    return transformed_point

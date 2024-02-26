@@ -13,7 +13,6 @@ import SimpleITK as sitk
 
 def numpy_array_to_sitk(x,spacing=(1.,)*3,origin=(0.,)*3):
     """
-    
     Converts numpy array to sitk format
     
     """
@@ -26,7 +25,6 @@ def numpy_array_to_sitk(x,spacing=(1.,)*3,origin=(0.,)*3):
 
 def numpy_point_to_sitk(xyz, sitk_image):
     """
-    
     Converts a numpy indices xyz to sitk point
     
     """
