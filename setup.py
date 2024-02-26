@@ -21,7 +21,7 @@ setuptools.setup(
     python_requires='>=3.6',
     install_requires=['numpy',
                       'pandas',
+                      'phantominator',
                       'SimpleITK',
-                      'matplotlib',
-                      'spectral']
+                      'matplotlib']
 )
