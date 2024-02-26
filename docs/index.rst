@@ -12,6 +12,12 @@ RAMAC Documentation
    :maxdepth: 2
    :caption: Contents:
 
+.. toctree::
+    :maxdepth: 2
+    :caption: API:
+
+    preprocessing
+
 Indices and tables
 ==================
 

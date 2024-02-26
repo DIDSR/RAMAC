@@ -1,11 +1,26 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
+import SimpleITK as sitk
 
 def mask_air(image, air_threshold=-950):
-    """Mask out the air in the CT scan."""
+    """
+    Mask out air voxels using air_threhold.
+
+    Parameters
+    ----------
+    image : np.array
+        Image to be preprocessed.
+    air_threshold : float, optional
+        Threshold for air voxels. The default is -950.
+
+    Returns
+    -------
+    masked_image : np.array
+        Processed image with air voxels removed.
+
+    """
+    
     # Create a binary mask using thresholding
     binary_mask = image > air_threshold
     
