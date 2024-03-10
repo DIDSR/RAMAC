@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ramac package &mdash; RAMAC 0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=d45e8c67"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="ramac" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            RAMAC
+              <img src="_static/ramac_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">ramac</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ramac package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.correspondence_csv_input">ramac.correspondence_csv_input module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.correspondence_csv_input.create_final_dataframe_timepoints"><code class="docutils literal notranslate"><span class="pre">create_final_dataframe_timepoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.correspondence_csv_input.find_corresponding_lesions_timepoints"><code class="docutils literal notranslate"><span class="pre">find_corresponding_lesions_timepoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.correspondence_csv_input.plot_lesion_correspondences_timepoints"><code class="docutils literal notranslate"><span class="pre">plot_lesion_correspondences_timepoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.correspondence_csv_input.process_lesion_timepoints"><code class="docutils literal notranslate"><span class="pre">process_lesion_timepoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.correspondence_csv_input.read_lesion_csv"><code class="docutils literal notranslate"><span class="pre">read_lesion_csv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.input_transform">ramac.input_transform module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.input_transform.create_phantom_shepplogan"><code class="docutils literal notranslate"><span class="pre">create_phantom_shepplogan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.input_transform.generate_visualization_composite_transform"><code class="docutils literal notranslate"><span class="pre">generate_visualization_composite_transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.input_transform.transform_phantom"><code class="docutils literal notranslate"><span class="pre">transform_phantom()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.merge_dataframe">ramac.merge_dataframe module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.merge_dataframe.merge_indices"><code class="docutils literal notranslate"><span class="pre">merge_indices()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.plots">ramac.plots module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.plots.compare_slices_interactive"><code class="docutils literal notranslate"><span class="pre">compare_slices_interactive()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.plots.ordinal"><code class="docutils literal notranslate"><span class="pre">ordinal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.plots.plot_lesions"><code class="docutils literal notranslate"><span class="pre">plot_lesions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.plots.plot_lesions_1"><code class="docutils literal notranslate"><span class="pre">plot_lesions_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.plots.plot_slices_interactive"><code class="docutils literal notranslate"><span class="pre">plot_slices_interactive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.preprocessing">ramac.preprocessing module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.preprocessing.mask_air"><code class="docutils literal notranslate"><span class="pre">mask_air()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.registration">ramac.registration module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.display_images"><code class="docutils literal notranslate"><span class="pre">display_images()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.display_images_with_alpha"><code class="docutils literal notranslate"><span class="pre">display_images_with_alpha()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.end_plot"><code class="docutils literal notranslate"><span class="pre">end_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.plot_values"><code class="docutils literal notranslate"><span class="pre">plot_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.registration_3d_rigid_gradient_descent"><code class="docutils literal notranslate"><span class="pre">registration_3d_rigid_gradient_descent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.registration_3d_rigid_series"><code class="docutils literal notranslate"><span class="pre">registration_3d_rigid_series()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.start_plot"><code class="docutils literal notranslate"><span class="pre">start_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.registration.update_multires_iterations"><code class="docutils literal notranslate"><span class="pre">update_multires_iterations()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.transform_coordinates">ramac.transform_coordinates module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.transform_coordinates.create_transformed_dataframe"><code class="docutils literal notranslate"><span class="pre">create_transformed_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.transform_coordinates.read_lesion_csv"><code class="docutils literal notranslate"><span class="pre">read_lesion_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.transform_coordinates.transform_centroid"><code class="docutils literal notranslate"><span class="pre">transform_centroid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.transform_coordinates.transform_physical_to_index"><code class="docutils literal notranslate"><span class="pre">transform_physical_to_index()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac.utils">ramac.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.applied_transform"><code class="docutils literal notranslate"><span class="pre">applied_transform()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.apply_rotation_and_translation"><code class="docutils literal notranslate"><span class="pre">apply_rotation_and_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.insert_lesion"><code class="docutils literal notranslate"><span class="pre">insert_lesion()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.numpy_array_to_sitk"><code class="docutils literal notranslate"><span class="pre">numpy_array_to_sitk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.numpy_point_to_sitk"><code class="docutils literal notranslate"><span class="pre">numpy_point_to_sitk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.numpy_points_to_sitk"><code class="docutils literal notranslate"><span class="pre">numpy_points_to_sitk()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.rotation_matrix"><code class="docutils literal notranslate"><span class="pre">rotation_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.round_coordinates_to_integer"><code class="docutils literal notranslate"><span class="pre">round_coordinates_to_integer()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.save_lesion_coordinates"><code class="docutils literal notranslate"><span class="pre">save_lesion_coordinates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.save_transformed_dataframe"><code class="docutils literal notranslate"><span class="pre">save_transformed_dataframe()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.transform_phantom_np"><code class="docutils literal notranslate"><span class="pre">transform_phantom_np()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ramac.utils.voxel_tuples_from_dataframe"><code class="docutils literal notranslate"><span class="pre">voxel_tuples_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ramac">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RAMAC</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">ramac</a></li>
+      <li class="breadcrumb-item active">ramac package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ramac.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ramac-package">
+<h1>ramac package<a class="headerlink" href="#ramac-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-ramac.correspondence_csv_input">
+<span id="ramac-correspondence-csv-input-module"></span><h2>ramac.correspondence_csv_input module<a class="headerlink" href="#module-ramac.correspondence_csv_input" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.correspondence_csv_input.create_final_dataframe_timepoints">
+<span class="sig-prename descclassname"><span class="pre">ramac.correspondence_csv_input.</span></span><span class="sig-name descname"><span class="pre">create_final_dataframe_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">correspondences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unmatched_names_df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unmatched_names_df2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.correspondence_csv_input.create_final_dataframe_timepoints" title="Link to this definition"></a></dt>
+<dd><p>Create a final DataFrame containing lesion correspondences between two timepoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>correspondences</strong> (<em>pandas.DataFrame</em>) – DataFrame containing lesion or ROI correspondences.</p></li>
+<li><p><strong>unmatched_names_df1</strong> (<em>pandas.DataFrame</em>) – DataFrame containing unmatched indices from the first file.</p></li>
+<li><p><strong>unmatched_names_df2</strong> (<em>pandas.DataFrame</em>) – DataFrame containing unmatched indices from the second file.</p></li>
+<li><p><strong>df1_file</strong> (<em>str</em>) – The file path to the first set of lesions or ROIs.</p></li>
+<li><p><strong>df2_file</strong> (<em>str</em>) – The file path to the second set of lesions or ROIs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the final lesion correspondences.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.correspondence_csv_input.find_corresponding_lesions_timepoints">
+<span class="sig-prename descclassname"><span class="pre">ramac.correspondence_csv_input.</span></span><span class="sig-name descname"><span class="pre">find_corresponding_lesions_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.correspondence_csv_input.find_corresponding_lesions_timepoints" title="Link to this definition"></a></dt>
+<dd><p>Find corresponding lesions between two sets of lesions or ROIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1_file</strong> (<em>str</em>) – The file path to the first set of lesions or ROIs.</p></li>
+<li><p><strong>df2_file</strong> (<em>str</em>) – The file path to the second set of lesions or ROIs.</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – The threshold distance for considering lesions or ROIs as corresponding.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing correspondences DataFrame, unmatched indices DataFrame from the first file,
+and unmatched indices DataFrame from the second file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[pandas.DataFrame, pandas.DataFrame, pandas.DataFrame]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.correspondence_csv_input.plot_lesion_correspondences_timepoints">
+<span class="sig-prename descclassname"><span class="pre">ramac.correspondence_csv_input.</span></span><span class="sig-name descname"><span class="pre">plot_lesion_correspondences_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.correspondence_csv_input.plot_lesion_correspondences_timepoints" title="Link to this definition"></a></dt>
+<dd><p>Plot lesion correspondences between two timepoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1_file</strong> (<em>str</em>) – The file path to the first set of lesions or ROIs.</p></li>
+<li><p><strong>df2_file</strong> (<em>str</em>) – The file path to the second set of lesions or ROIs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.correspondence_csv_input.process_lesion_timepoints">
+<span class="sig-prename descclassname"><span class="pre">ramac.correspondence_csv_input.</span></span><span class="sig-name descname"><span class="pre">process_lesion_timepoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">screening_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.correspondence_csv_input.process_lesion_timepoints" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.correspondence_csv_input.read_lesion_csv">
+<span class="sig-prename descclassname"><span class="pre">ramac.correspondence_csv_input.</span></span><span class="sig-name descname"><span class="pre">read_lesion_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.correspondence_csv_input.read_lesion_csv" title="Link to this definition"></a></dt>
+<dd><p>Read a CSV file containing lesion data into a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The file path to the CSV file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the lesion data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.input_transform">
+<span id="ramac-input-transform-module"></span><h2>ramac.input_transform module<a class="headerlink" href="#module-ramac.input_transform" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.input_transform.create_phantom_shepplogan">
+<span class="sig-prename descclassname"><span class="pre">ramac.input_transform.</span></span><span class="sig-name descname"><span class="pre">create_phantom_shepplogan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ramac.input_transform.create_phantom_shepplogan" title="Link to this definition"></a></dt>
+<dd><p>Creates a Shepp-Logan test phantom with two inserted lesions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>phantom</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sitk.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.input_transform.generate_visualization_composite_transform">
+<span class="sig-prename descclassname"><span class="pre">ramac.input_transform.</span></span><span class="sig-name descname"><span class="pre">generate_visualization_composite_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rotation_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.input_transform.generate_visualization_composite_transform" title="Link to this definition"></a></dt>
+<dd><p>Generate second composite transformation based on the rotation and translation parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rotation_params</strong> (<em>tuple</em>) – Parameters for rotation transformation.</p></li>
+<li><p><strong>translation_params</strong> (<em>tuple</em>) – Parameters for translation transformation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>composite_transform_1</strong> – Second composite transformation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimpleITK.CompositeTransform</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.input_transform.transform_phantom">
+<span class="sig-prename descclassname"><span class="pre">ramac.input_transform.</span></span><span class="sig-name descname"><span class="pre">transform_phantom</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lesions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation_params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.input_transform.transform_phantom" title="Link to this definition"></a></dt>
+<dd><p>Takes as input phantom and lesions generated from <a href="#id1"><span class="problematic" id="id2">create_phantom_</span></a>… and applies known rotation and translation in sitk</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phantom</strong> (<em>SimpleITK.Image</em>) – The original phantom image.</p></li>
+<li><p><strong>lesions</strong> (<em>list</em><em> of </em><em>SimpleITK cordinates in 3D</em>) – List of lesion points in the original phantom coordinate system.</p></li>
+<li><p><strong>rotation_params</strong> (<em>tuple</em>) – Parameters for rotation transformation.</p></li>
+<li><p><strong>translation_params</strong> (<em>tuple</em>) – Parameters for translation transformation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>transformed_phantom</strong> (<em>SimpleITK.Image</em>) – The transformed phantom image.</p></li>
+<li><p><strong>transformed_lesions</strong> (<em>list of SimpleITK cooridnates in 3D</em>) – List of transformed lesion points.</p></li>
+<li><p><strong>known_transformation</strong> (<em>SimpleITK.CompositeTransform</em>) – The known composite transformation applied to the phantom and lesions.
+Composite transformations are applied in stack order.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.merge_dataframe">
+<span id="ramac-merge-dataframe-module"></span><h2>ramac.merge_dataframe module<a class="headerlink" href="#module-ramac.merge_dataframe" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.merge_dataframe.merge_indices">
+<span class="sig-prename descclassname"><span class="pre">ramac.merge_dataframe.</span></span><span class="sig-name descname"><span class="pre">merge_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.merge_dataframe.merge_indices" title="Link to this definition"></a></dt>
+<dd><p>Merge ‘Fixed Index’ and ‘Reg Index’ columns into ‘Correspondence Index’ column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – The DataFrame containing ‘Fixed Index’ and ‘Reg Index’ columns.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The DataFrame with a new ‘Correspondence Index (F, M)’ column</dt><dd><p>containing tuples of corresponding indices.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.plots">
+<span id="ramac-plots-module"></span><h2>ramac.plots module<a class="headerlink" href="#module-ramac.plots" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.plots.compare_slices_interactive">
+<span class="sig-prename descclassname"><span class="pre">ramac.plots.</span></span><span class="sig-name descname"><span class="pre">compare_slices_interactive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_resampled</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.plots.compare_slices_interactive" title="Link to this definition"></a></dt>
+<dd><p>Compare slices interactively for three input images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>original_phantom</strong> (<em>SimpleITK.Image</em>) – The original phantom image.</p></li>
+<li><p><strong>transformed_phantom</strong> (<em>SimpleITK.Image</em>) – The transformed phantom image (which is the moving image).</p></li>
+<li><p><strong>moving_resampled</strong> (<em>SimpleITK.Image</em>) – The resampled moving image (registered image).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.plots.ordinal">
+<span class="sig-prename descclassname"><span class="pre">ramac.plots.</span></span><span class="sig-name descname"><span class="pre">ordinal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.plots.ordinal" title="Link to this definition"></a></dt>
+<dd><p>Converts a number into its ordinal representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong> (<em>int</em>) – The number to be converted.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The ordinal representation of the number.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.plots.plot_lesions">
+<span class="sig-prename descclassname"><span class="pre">ramac.plots.</span></span><span class="sig-name descname"><span class="pre">plot_lesions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.plots.plot_lesions" title="Link to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Plots visualizations of lesions on different slices of the obtained images (fixed, moving and registered).
+In each row, different orinetations (X, Y and Z slices) of a particular volumetric image are plotted across columns.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*args</strong> – <dl class="simple">
+<dt>Variable number of arguments representing tuples of (image, voxel_tuples) pairs, where:</dt><dd><p>image (SimpleITK.Image): The image to visualize.
+voxel_tuples (list): List of tuples containing voxel coordinates of lesions in the image.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.plots.plot_lesions_1">
+<span class="sig-prename descclassname"><span class="pre">ramac.plots.</span></span><span class="sig-name descname"><span class="pre">plot_lesions_1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_resampled</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_voxel_tuples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transformed_lesions_rounded</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">registered_voxel_tuples</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.plots.plot_lesions_1" title="Link to this definition"></a></dt>
+<dd><p>Plots visualizations of lesions on different slices of the obtained images (fixed, moving and registered).
+In each row, a particular slice of the fixed, moving and registered images are plotted across the columns</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>original_phantom</strong> (<em>SimpleITK.Image</em>) – The original phantom image.</p></li>
+<li><p><strong>transformed_phantom</strong> (<em>SimpleITK.Image</em>) – The transformed phantom image.</p></li>
+<li><p><strong>moving_resampled</strong> (<em>SimpleITK.Image</em>) – The resampled moving image.</p></li>
+<li><p><strong>fixed_voxel_tuples</strong> (<em>list</em>) – List of tuples containing voxel coordinates of lesions in the fixed image.</p></li>
+<li><p><strong>transformed_lesions_rounded</strong> (<em>list</em>) – List of tuples containing transformed lesion coordinates for visualization.</p></li>
+<li><p><strong>registered_voxel_tuples</strong> (<em>list</em>) – List of tuples containing voxel coordinates of lesions in the registered image.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.plots.plot_slices_interactive">
+<span class="sig-prename descclassname"><span class="pre">ramac.plots.</span></span><span class="sig-name descname"><span class="pre">plot_slices_interactive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.plots.plot_slices_interactive" title="Link to this definition"></a></dt>
+<dd><p>Plot interactive slices along each axis of the provided image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>SimpleITK.Image</em>) – The input 3D image.</p></li>
+<li><p><strong>slice_x</strong> (<em>int</em>) – The slice index along the x-axis.</p></li>
+<li><p><strong>slice_y</strong> (<em>int</em>) – The slice index along the y-axis.</p></li>
+<li><p><strong>slice_z</strong> (<em>int</em>) – The slice index along the z-axis.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.preprocessing">
+<span id="ramac-preprocessing-module"></span><h2>ramac.preprocessing module<a class="headerlink" href="#module-ramac.preprocessing" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.preprocessing.mask_air">
+<span class="sig-prename descclassname"><span class="pre">ramac.preprocessing.</span></span><span class="sig-name descname"><span class="pre">mask_air</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">air_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-950</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.preprocessing.mask_air" title="Link to this definition"></a></dt>
+<dd><p>Mask out air voxels using air_threhold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>np.array</em>) – Image to be preprocessed.</p></li>
+<li><p><strong>air_threshold</strong> (<em>float</em><em>, </em><em>optional</em>) – Threshold for air voxels. The default is -950.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>masked_image</strong> – Processed image with air voxels removed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.array</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.registration">
+<span id="ramac-registration-module"></span><h2>ramac.registration module<a class="headerlink" href="#module-ramac.registration" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.display_images">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">display_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_npa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_npa</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.display_images" title="Link to this definition"></a></dt>
+<dd><p>Display images from the fixed and moving image stacks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixed_image_z</strong> (<em>int</em>) – The index of the slice to be displayed from the fixed image stack.</p></li>
+<li><p><strong>moving_image_z</strong> (<em>int</em>) – The index of the slice to be displayed from the moving image stack.</p></li>
+<li><p><strong>fixed_npa</strong> (<em>numpy.ndarray</em>) – The numpy array representing the fixed image stack.</p></li>
+<li><p><strong>moving_npa</strong> (<em>numpy.ndarray</em>) – The numpy array representing the moving image stack.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.display_images_with_alpha">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">display_images_with_alpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.display_images_with_alpha" title="Link to this definition"></a></dt>
+<dd><p>Display images with alpha blending between fixed and moving images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_z</strong> (<em>int</em>) – The index of the slice to be displayed.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em>) – The alpha blending parameter.</p></li>
+<li><p><strong>fixed</strong> (<em>SimpleITK.Image</em>) – The fixed image.</p></li>
+<li><p><strong>moving</strong> (<em>SimpleITK.Image</em>) – The moving image.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.end_plot">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">end_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.end_plot" title="Link to this definition"></a></dt>
+<dd><p>Callback invoked when the EndEvent happens, do cleanup of data and figure.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.plot_values">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">plot_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">registration_method</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.plot_values" title="Link to this definition"></a></dt>
+<dd><p>Callback invoked when the IterationEvent happens, update our data and display new figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>registration_method</strong> – The registration method.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.registration_3d_rigid_gradient_descent">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">registration_3d_rigid_gradient_descent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.registration_3d_rigid_gradient_descent" title="Link to this definition"></a></dt>
+<dd><p>Perform 3D rigid registration using gradient descent optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixed_image</strong> – SimpleITK.Image
+The fixed image to be registered.</p></li>
+<li><p><strong>moving_image</strong> – SimpleITK.Image
+The moving image to be registered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing the resampled moving image and the list of transforms applied.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Details:</dt><dd><p>This function performs 3D rigid registration between a fixed and a moving image using gradient descent optimization.
+It initializes the transformation parameters using the CenteredTransformInitializer with a similarity transformation.
+The registration process is driven by the correlation metric.
+Optimization is performed using the RegularStepGradientDescent optimizer with specified parameters.
+The function prints the optimizer progress at each iteration and outputs the transformed moving image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.registration_3d_rigid_series">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">registration_3d_rigid_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fixed_image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">moving_image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.registration_3d_rigid_series" title="Link to this definition"></a></dt>
+<dd><p>Perform 3D rigid registration using a series of steps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fixed_image</strong> – SimpleITK.Image
+The fixed image to be registered.</p></li>
+<li><p><strong>moving_image</strong> – SimpleITK.Image
+The moving image to be registered.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>tuple</dt><dd><p>A tuple containing the resampled moving image and the list of transforms applied.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Details:</dt><dd><p>This function performs 3D rigid registration between a fixed and a moving image in a series of steps.
+It initializes the transformation parameters using the CenteredTransformInitializer with an Euler3DTransform.
+The registration method is driven by the MattesMutualInformation metric.
+Optimization is performed using gradient descent with specified parameters.
+Multi-resolution framework is used for optimization.
+The function prints the final metric value and optimizer’s stopping condition.
+It also returns the resampled moving image and the list of initial and final transforms applied.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.start_plot">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">start_plot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.start_plot" title="Link to this definition"></a></dt>
+<dd><p>Callback invoked when the StartEvent happens, sets up our new data.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.registration.update_multires_iterations">
+<span class="sig-prename descclassname"><span class="pre">ramac.registration.</span></span><span class="sig-name descname"><span class="pre">update_multires_iterations</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ramac.registration.update_multires_iterations" title="Link to this definition"></a></dt>
+<dd><p>Callback invoked when the sitkMultiResolutionIterationEvent happens, update the index into the metric_values list.</p>
+</dd></dl>
+
+</section>
+<section id="module-ramac.transform_coordinates">
+<span id="ramac-transform-coordinates-module"></span><h2>ramac.transform_coordinates module<a class="headerlink" href="#module-ramac.transform_coordinates" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.transform_coordinates.create_transformed_dataframe">
+<span class="sig-prename descclassname"><span class="pre">ramac.transform_coordinates.</span></span><span class="sig-name descname"><span class="pre">create_transformed_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.transform_coordinates.create_transformed_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Create a new DataFrame with transformed coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_file</strong> (<em>str</em>) – The path to the CSV file containing the original lesion data.</p></li>
+<li><p><strong>transform</strong> (<em>SimpleITK.Transform</em>) – The transformation to apply to the coordinates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the transformed lesion data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.transform_coordinates.read_lesion_csv">
+<span class="sig-prename descclassname"><span class="pre">ramac.transform_coordinates.</span></span><span class="sig-name descname"><span class="pre">read_lesion_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.transform_coordinates.read_lesion_csv" title="Link to this definition"></a></dt>
+<dd><p>Read lesion data from a CSV file into a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the CSV file containing lesion data.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A DataFrame containing the lesion data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.transform_coordinates.transform_centroid">
+<span class="sig-prename descclassname"><span class="pre">ramac.transform_coordinates.</span></span><span class="sig-name descname"><span class="pre">transform_centroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">centroid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.transform_coordinates.transform_centroid" title="Link to this definition"></a></dt>
+<dd><p>Apply a transformation to a given centroid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>centroid</strong> (<em>tuple</em><em> or </em><em>str</em>) – The centroid coordinates as a tuple or string representation.</p></li>
+<li><p><strong>transform</strong> (<em>SimpleITK.Transform</em>) – The transformation to apply.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed centroid coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.transform_coordinates.transform_physical_to_index">
+<span class="sig-prename descclassname"><span class="pre">ramac.transform_coordinates.</span></span><span class="sig-name descname"><span class="pre">transform_physical_to_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df_file_or_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.transform_coordinates.transform_physical_to_index" title="Link to this definition"></a></dt>
+<dd><p>Transform physical coordinates to voxel indices using SimpleITK.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>SimpleITK.Image</em>) – The image containing the spatial information.</p></li>
+<li><p><strong>df_file_or_df</strong> (<em>str</em><em> or </em><em>pandas.DataFrame</em>) – The path to the CSV file containing physical coordinates,
+or a DataFrame containing the physical coordinates directly.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>DataFrame containing voxel indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pandas.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac.utils">
+<span id="ramac-utils-module"></span><h2>ramac.utils module<a class="headerlink" href="#module-ramac.utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.applied_transform">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">applied_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transform</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.applied_transform" title="Link to this definition"></a></dt>
+<dd><p>Applies a transformation and prints its parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>transform</strong> – object
+The transformation object to be applied.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Prints:</dt><dd><p>Transformation Parameters:
+The parameters of the applied transformation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.apply_rotation_and_translation">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">apply_rotation_and_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lesion_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_matrix_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.apply_rotation_and_translation" title="Link to this definition"></a></dt>
+<dd><p>Apply rotation and translation to lesion coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lesion_coords</strong> (<em>list</em><em> of </em><em>tuples</em>) – List of lesion coordinates (x, y, z).</p></li>
+<li><p><strong>rotation_matrix_x</strong> (<em>numpy.ndarray</em>) – Rotation matrix for the x-axis.</p></li>
+<li><p><strong>#rotation_matrix_y</strong> (<em>numpy.ndarray</em>) – Rotation matrix for the y-axis.</p></li>
+<li><p><strong>translation</strong> (<em>tuple</em>) – The translation vector (z, y, x).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Transformed lesion coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.insert_lesion">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">insert_lesion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.insert_lesion" title="Link to this definition"></a></dt>
+<dd><p>Inserts a lesion into the given 3D array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – The 3D array representing the phantom.</p></li>
+<li><p><strong>c</strong> (<em>tuple</em>) – The coordinates of the center of the lesion in the format (z, y, x).</p></li>
+<li><p><strong>r</strong> (<em>float</em>) – The radius of the lesion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The modified phantom array with the lesion inserted.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.numpy_array_to_sitk">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">numpy_array_to_sitk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1.0,</span> <span class="pre">1.0,</span> <span class="pre">1.0)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.numpy_array_to_sitk" title="Link to this definition"></a></dt>
+<dd><p>Converts a NumPy array to a SimpleITK image format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>np.ndarray</em>) – The input NumPy array.</p></li>
+<li><p><strong>spacing</strong> (<em>tuple</em><em>, </em><em>optional</em>) – The spacing of the image voxels along each dimension. Defaults to (1., 1., 1.).</p></li>
+<li><p><strong>origin</strong> (<em>tuple</em><em>, </em><em>optional</em>) – The origin of the image in physical coordinates. Defaults to (0., 0., 0.).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The SimpleITK image representation of the input NumPy array.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimpleITK.Image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.numpy_point_to_sitk">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">numpy_point_to_sitk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitk_image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.numpy_point_to_sitk" title="Link to this definition"></a></dt>
+<dd><p>Converts a tuple of numpy indices (xyz) to a SimpleITK point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xyz</strong> (<em>tuple</em>) – The tuple of integers representing the indices along each axis (x, y, z).</p></li>
+<li><p><strong>sitk_image</strong> (<em>SimpleITK.Image</em>) – The SimpleITK image from which the point is to be extracted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The physical point corresponding to the given numpy indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SimpleITK.Point</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.numpy_points_to_sitk">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">numpy_points_to_sitk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyzs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sitk_image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.numpy_points_to_sitk" title="Link to this definition"></a></dt>
+<dd><p>Converts a list of numpy indices (xyzs) to a list of SimpleITK points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xyzs</strong> (<em>list</em>) – A list of tuples, each representing the indices along each axis (x, y, z).</p></li>
+<li><p><strong>sitk_image</strong> (<em>SimpleITK.Image</em>) – The SimpleITK image from which the points are to be extracted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of SimpleITK points corresponding to the given numpy indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.rotation_matrix">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">rotation_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.rotation_matrix" title="Link to this definition"></a></dt>
+<dd><p>Return the rotation matrix associated with counterclockwise rotation about
+the given axis by theta degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em>) – The axis of rotation.</p></li>
+<li><p><strong>theta</strong> (<em>float</em>) – The angle of rotation in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rotation matrix.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.round_coordinates_to_integer">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">round_coordinates_to_integer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.round_coordinates_to_integer" title="Link to this definition"></a></dt>
+<dd><p>Round each coordinate in a list of tuples to the nearest integer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>coordinates</strong> (<em>list</em><em> of </em><em>tuples</em>) – List containing tuples of coordinates.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of tuples with each coordinate rounded to the nearest integer.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list of tuples</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.save_lesion_coordinates">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">save_lesion_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lesion_coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lesion_index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.save_lesion_coordinates" title="Link to this definition"></a></dt>
+<dd><p>Save lesion coordinates to a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lesion_coords</strong> (<em>list</em><em> of </em><em>tuples</em>) – List of lesion coordinates (x, y, z).</p></li>
+<li><p><strong>lesion_index</strong> (<em>list</em><em> of </em><em>int</em>) – List of lesion indices.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The filename for the CSV file.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.save_transformed_dataframe">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">save_transformed_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transformed_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.save_transformed_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Save Transformed DataFrame to a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>transformed_df</strong> – DataFrame
+The DataFrame containing the transformed data.</p></li>
+<li><p><strong>output_file</strong> – str
+The path to the output CSV file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Saves:</dt><dd><p>The transformed DataFrame to the specified CSV file without index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.transform_phantom_np">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">transform_phantom_np</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phantom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotation_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(1,</span> <span class="pre">2)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.transform_phantom_np" title="Link to this definition"></a></dt>
+<dd><p>Apply rotation and translation to the phantom.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>phantom</strong> (<em>ndarray</em>) – The input phantom.</p></li>
+<li><p><strong>rotation_angle</strong> (<em>float</em>) – The rotation angle in degrees.</p></li>
+<li><p><strong>translation</strong> (<em>tuple</em>) – The translation vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed phantom.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ramac.utils.voxel_tuples_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">ramac.utils.</span></span><span class="sig-name descname"><span class="pre">voxel_tuples_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ramac.utils.voxel_tuples_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Extract voxel coordinates as tuples from a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing voxel coordinates.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of tuples containing voxel coordinates.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ramac">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ramac" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="ramac" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Subrata Mukherjee, Qian Cao.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
