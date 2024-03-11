@@ -1,10 +1,10 @@
-.. ralmac_docs documentation master file, created by
-   sphinx-quickstart on Fri Feb 23 13:57:16 2024.
+.. RAMAC documentation master file, created by
+   sphinx-quickstart on Sun Mar 10 18:36:56 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-RAMAC Documentation
-========================================================================
+Welcome to RAMAC's documentation!
+=================================
 
 .. include:: ../README.md
 
@@ -16,7 +16,13 @@ RAMAC Documentation
     :maxdepth: 2
     :caption: API:
 
-    preprocessing
+   modules
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Tutorials:
+
+   ../test/test_script.ipynb
 
 Indices and tables
 ==================

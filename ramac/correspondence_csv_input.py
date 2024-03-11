@@ -3,13 +3,21 @@
 
 # In[6]:
 
-
 import pandas as pd
 from scipy.spatial.distance import cdist
 from scipy.optimize import linear_sum_assignment
 import matplotlib.pyplot as plt
 
 def read_lesion_csv(file_path):
+    """
+    Read a CSV file containing lesion data into a DataFrame.
+
+    Parameters:
+        file_path (str): The file path to the CSV file.
+
+    Returns:
+        pandas.DataFrame: A DataFrame containing the lesion data.
+    """
     # Define column names
     column_names = ['x', 'y', 'z', 'Index']
     
@@ -18,12 +26,26 @@ def read_lesion_csv(file_path):
     
     return df
 
+
 def find_corresponding_lesions_timepoints(df1_file, df2_file, threshold):
+    """
+    Find corresponding lesions between two sets of lesions or ROIs.
+
+    Parameters:
+        df1_file (str): The file path to the first set of lesions or ROIs.
+        df2_file (str): The file path to the second set of lesions or ROIs.
+        threshold (float): The threshold distance for considering lesions or ROIs as corresponding.
+
+    Returns:
+        Tuple[pandas.DataFrame, pandas.DataFrame, pandas.DataFrame]: 
+        A tuple containing correspondences DataFrame, unmatched indices DataFrame from the first file,
+        and unmatched indices DataFrame from the second file.
+    """
     # Read CSV files into DataFrames
     df1 = read_lesion_csv(df1_file)
     df2 = read_lesion_csv(df2_file)
 
-    # Initialize the correspondence data frame
+    # Initialize the correspondence data frame with 'F_I' and 'R_I' columns
     correspondences = pd.DataFrame(columns=['F_I', 'Fixed_Index', 'R_I', 'Reg_Index', 'Distance', 'Match_Status'])
 
     # Function to process each group
@@ -38,15 +60,15 @@ def find_corresponding_lesions_timepoints(df1_file, df2_file, threshold):
                     match_status = 'matched'
                 else:
                     match_status = 'not matched'
-                # Append the match information
-                correspondences = correspondences.append({
-                    'F_I': df1_group.index[i],
-                    'Fixed_Index': df1_group.iloc[i]['Index'],
-                    'R_I': df2_group.index[j],
-                    'Reg_Index': df2_group.iloc[j]['Index'],
-                    'Distance': distance,
-                    'Match_Status': match_status
-                }, ignore_index=True)
+                # Append the match information including 'F_I' and 'R_I'
+                correspondences = pd.concat([correspondences, pd.DataFrame({
+                    'F_I': [df1_group.index[i]],
+                    'Fixed_Index': [df1_group.iloc[i]['Index']],
+                    'R_I': [df2_group.index[j]],
+                    'Reg_Index': [df2_group.iloc[j]['Index']],
+                    'Distance': [distance],
+                    'Match_Status': [match_status]
+                })], ignore_index=True)
 
     # Process lesions if there are common lesions
     if not df1.empty and not df2.empty:
@@ -65,20 +87,19 @@ def find_corresponding_lesions_timepoints(df1_file, df2_file, threshold):
     not_matched_by_hdt_df2 = correspondences[correspondences['Match_Status'] == 'not matched']['Reg_Index']
     
     # Append 'not matched' by hard thresholding to the unmatched DataFrames
-    unmatched_index_df1 = unmatched_index_df1.append(pd.DataFrame({
+    unmatched_index_df1 = pd.concat([unmatched_index_df1, pd.DataFrame({
         'Fixed_Index': not_matched_by_hdt_df1, 
         'UnMatch': 'By Hungarian distance and Thresholding'
-    }), ignore_index=True)
+    })], ignore_index=True)
 
-    unmatched_index_df2 = unmatched_index_df2.append(pd.DataFrame({
+    unmatched_index_df2 = pd.concat([unmatched_index_df2, pd.DataFrame({
         'Reg_Index': not_matched_by_hdt_df2, 
         'UnMatch': 'By Hungarian distance and Thresholding'
-    }), ignore_index=True)
+    })], ignore_index=True)
 
     return correspondences, unmatched_index_df1, unmatched_index_df2
 
 def process_lesion_timepoints(screening_file, transformed_file, threshold):
-    # Process correspondences
     correspondences, unmatched_names_df1, unmatched_names_df2 = find_corresponding_lesions_timepoints(
         screening_file, transformed_file, threshold
     )
@@ -87,6 +108,13 @@ def process_lesion_timepoints(screening_file, transformed_file, threshold):
     return correspondences, unmatched_names_df1, unmatched_names_df2
 
 def plot_lesion_correspondences_timepoints(df1_file, df2_file):
+    """
+    Plot lesion correspondences between two timepoints.
+
+    Parameters:
+        df1_file (str): The file path to the first set of lesions or ROIs.
+        df2_file (str): The file path to the second set of lesions or ROIs.
+    """
     # Calculate correspondences and unmatched names
     correspondences, unmatched_names_df1, unmatched_names_df2 = find_corresponding_lesions_timepoints(df1_file, df2_file, threshold=30)
     df1 = read_lesion_csv(df1_file)
@@ -105,12 +133,12 @@ def plot_lesion_correspondences_timepoints(df1_file, df2_file):
 
     # Plot lesions from df1
     for index, row in df1.iterrows():
-        ax.scatter(row['x'], row['y'], row['z'], color='blue', s=50, label='Fixed_Centroids' if index == 0 else "", alpha=0.6)
+        ax.scatter(row['x'], row['y'], row['z'], color='blue', s=50, label='Fixed_Coordinates' if index == 0 else "", alpha=0.6)
         ax.text(row['x'], row['y'], row['z'], row['Index'], color='blue')
 
     # Plot lesions from df2
     for index, row in df2.iterrows():
-        ax.scatter(row['x'], row['y'], row['z'], color='red', s=50, label='Transformed_Centroids' if index == 0 else "", alpha=0.6)
+        ax.scatter(row['x'], row['y'], row['z'], color='red', s=50, label='Registered_Coordinates' if index == 0 else "", alpha=0.6)
         ax.text(row['x'], row['y'], row['z'], row['Index'], color='red')
 
     # Draw lines between corresponding lesions and annotate distances
@@ -137,20 +165,26 @@ def plot_lesion_correspondences_timepoints(df1_file, df2_file):
     plt.title('Lesion Correspondences Between Radiologists')
     plt.show()
 
-
 def create_final_dataframe_timepoints(correspondences, unmatched_names_df1, unmatched_names_df2, df1_file, df2_file):
-    
+    """
+    Create a final DataFrame containing lesion correspondences between two timepoints.
+
+    Parameters:
+        correspondences (pandas.DataFrame): DataFrame containing lesion or ROI correspondences.
+        unmatched_names_df1 (pandas.DataFrame): DataFrame containing unmatched indices from the first file.
+        unmatched_names_df2 (pandas.DataFrame): DataFrame containing unmatched indices from the second file.
+        df1_file (str): The file path to the first set of lesions or ROIs.
+        df2_file (str): The file path to the second set of lesions or ROIs.
+
+    Returns:
+        pandas.DataFrame: A DataFrame containing the final lesion correspondences.
+    """
     # Read CSV files into DataFrames
     df1 = read_lesion_csv(df1_file)
     df2 = read_lesion_csv(df2_file)
-    # Initialize the new DataFrame
-    new_df = pd.DataFrame(columns=[
-        'Updated Index', 'Fixed Index', 'Fixed Centroid',
-        'Reg Index', 'Reg Centroid', 'Merge Centroid',
-    ])
     
-    # Initialize a dictionary to keep track of encountered indices
-    encountered_indices = {}
+    # Initialize a list to collect dictionaries
+    data = []
 
     # Process 'matched' correspondences
     matched_correspondences = correspondences[correspondences['Match_Status'] == 'matched']
@@ -168,14 +202,14 @@ def create_final_dataframe_timepoints(correspondences, unmatched_names_df1, unma
         # Merge Centroid is the same as Reg Centroid
         merge_centroid = reg_centroid.tolist()
 
-        new_df = new_df.append({
+        data.append({
             'Updated Index': str(int(updated_index)) if updated_index == int(updated_index) else updated_index,
             'Fixed Index': str(int(fixed_index)) if fixed_index == int(fixed_index) else fixed_index,
             'Fixed Centroid': fixed_centroid.tolist(),
             'Reg Index': str(int(reg_index)) if reg_index == int(reg_index) else reg_index,
             'Reg Centroid': reg_centroid.tolist(),
             'Merge Centroid': merge_centroid
-        }, ignore_index=True)
+        })
 
     # Process 'Not matched' entries in unmatched_names_df1
     for _, row in unmatched_names_df1.iterrows():
@@ -191,17 +225,17 @@ def create_final_dataframe_timepoints(correspondences, unmatched_names_df1, unma
         # Merge Centroid is the same as Fixed Centroid in those cases
         merge_centroid = fixed_centroid.tolist()
 
-        new_df = new_df.append({
+        data.append({
             'Updated Index': str(int(fixed_index)) if fixed_index == int(fixed_index) else fixed_index,
             'Fixed Index': str(int(fixed_index)) if fixed_index == int(fixed_index) else fixed_index,
             'Fixed Centroid': fixed_centroid.tolist(),
             'Reg Index': reg_index,
             'Reg Centroid': reg_centroid,
             'Merge Centroid': merge_centroid
-        }, ignore_index=True)
+        })
 
     # Process 'Not matched' entries in unmatched_names_df2
-    max_updated_index = int(new_df['Updated Index'].max()) if not new_df.empty else 0
+    max_updated_index = int(correspondences['Fixed_Index'].max()) if not correspondences.empty else 0
     for _, row in unmatched_names_df2.iterrows():
         reg_index = row['Reg_Index']
         max_updated_index += 1  # Increment the updated index
@@ -216,20 +250,16 @@ def create_final_dataframe_timepoints(correspondences, unmatched_names_df1, unma
         # Merge Centroid is the same as Reg Centroid in those cases
         merge_centroid = reg_centroid.tolist()
 
-        new_df = new_df.append({
+        data.append({
             'Updated Index': str(max_updated_index),
             'Fixed Index': fixed_index,
             'Fixed Centroid': fixed_centroid,
             'Reg Index': str(int(reg_index)) if reg_index == int(reg_index) else reg_index,
             'Reg Centroid': reg_centroid.tolist(),
             'Merge Centroid': merge_centroid
-        }, ignore_index=True)
+        })
+
+    # Convert the list of dictionaries into a DataFrame
+    new_df = pd.DataFrame(data)
 
     return new_df
-
-
-# In[ ]:
-
-
-
-

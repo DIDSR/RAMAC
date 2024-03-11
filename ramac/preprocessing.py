@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+
 import SimpleITK as sitk
 
 def mask_air(image, air_threshold=-950):
@@ -41,4 +42,3 @@ def mask_air(image, air_threshold=-950):
     masked_image = sitk.Mask(image, largest_air_mask)
     
     return masked_image
-

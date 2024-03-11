@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
-
-#import sys
-#sys.path.append("../ralmac")
-#from phantominator import shepp_logan
-#from utils import *
-
+from phantominator import shepp_logan
+from utils import *
 
 import SimpleITK as sitk
 import numpy as np
@@ -145,6 +140,3 @@ def transform_phantom(phantom, lesions, rotation_params, translation_params):
     transformed_lesions_1 = [translation_1.TransformPoint(p) for p in transformed_lesions_1]
     
     return transformed_phantom, transformed_lesions, transformed_lesions_1, transformed_phantom_1
-
-
-
