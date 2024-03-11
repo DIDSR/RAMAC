@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setuptools.setup(
     name="RAMAC",
     version="0.0.1.dev1",
-    author="Qian Cao, Subrata Mukherjee",
+    author="Subrata Mukherjee, Qian Cao",
     author_email="qian.cao@fda.hhs.gov",
     description="Registration-based Automatic Matching and Correspondence",
     long_description=long_description,
