@@ -299,3 +299,59 @@ def plot_lesions(*args):
         plt.show()
 
 
+def plot_triplanar(image, voxel_tuples, window_level, window_width, image_name):
+    """
+    Plots triplanar views (axial, sagittal, coronal) of the image slices containing lesions.
+
+    Args:
+        image (SimpleITK.Image): The input image containing the lesion data.
+        voxel_tuples (list of tuples): A list of tuples containing the voxel coordinates (x, y, z) of the lesions.
+        window_level (float): The window level for image visualization.
+        window_width (float): The window width for image visualization.
+        image_name (str): The name of the image to be displayed in the plot.
+    """
+    num_lesions = len(voxel_tuples)
+    fig, axs = plt.subplots(num_lesions, 3, figsize=(15, 5 * num_lesions))
+    plt.suptitle(image_name)
+
+    image_array = sitk.GetArrayFromImage(image)
+    spacing = image.GetSpacing()
+
+    for i, (voxel_coords, ax_row) in enumerate(zip(voxel_tuples, axs)):
+        axial_slice = image_array[voxel_coords[2], :, :]
+        sagittal_slice = image_array[:, :, voxel_coords[0]]
+        coronal_slice = image_array[:, voxel_coords[1], :]
+
+        plot_slice(ax_row[0], axial_slice,  (voxel_coords[0], voxel_coords[1]), f"Axial Slice {ordinal(i+1)} Lesion", 
+                   spacing[0] / spacing[1], voxel_coords[2], window_level, window_width, flip=False)
+        plot_slice(ax_row[1], sagittal_slice, (voxel_coords[1], voxel_coords[2]), f"Sagittal Slice {ordinal(i+1)} Lesion", 
+                   spacing[2] / spacing[1], voxel_coords[0], window_level, window_width, flip=True)
+        plot_slice(ax_row[2], coronal_slice, (voxel_coords[0], voxel_coords[2]), f"Coronal Slice {ordinal(i+1)} Lesion", 
+                   spacing[2] / spacing[0], voxel_coords[1], window_level, window_width, flip=True)
+
+    plt.tight_layout()
+    plt.show()
+
+def plot_slice(ax, slice_array, centroid, title, aspect, slice_number, window_level, window_width, flip=False):
+    """
+    Plots a single slice of the image with the centroid of the lesion marked.
+
+    Args:
+        ax (matplotlib.axes.Axes): The Axes object to plot the slice on.
+        slice_array (numpy.ndarray): The 2D array representing the image slice.
+        centroid (tuple): The coordinates (x, y) of the lesion centroid.
+        title (str): The title of the plot.
+        aspect (float): The aspect ratio of the plot.
+        slice_number (int): The number of the slice.
+        window_level (float): The window level for image visualization.
+        window_width (float): The window width for image visualization.
+        flip (bool, optional): Whether to flip the slice array vertically. Defaults to False.
+    """
+    if flip:
+        slice_array = np.flipud(slice_array)
+        centroid = (centroid[0], slice_array.shape[0] - centroid[1] - 1)
+    ax.imshow(slice_array, cmap='gray', aspect=aspect,
+              vmin=window_level - 0.5 * window_width, vmax=window_level + 0.5 * window_width)
+    ax.plot(centroid[0], centroid[1], 'ro')
+    ax.set_title(f"{title} (Slice {slice_number})")
+    ax.axis('off')

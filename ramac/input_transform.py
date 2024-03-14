@@ -1,11 +1,32 @@
-#!/usr/bin/env python
-# coding: utf-8
+
 
 from phantominator import shepp_logan
 from utils import *
 
+
 import SimpleITK as sitk
 import numpy as np
+
+
+def load_dicom_series(directory):
+    """
+    Loads a DICOM series from the specified directory and converts it to a 32-bit floating-point type.
+
+    Args:
+        directory (str): The path to the directory containing the DICOM series.
+
+    Returns:
+        SimpleITK.Image: The loaded DICOM series as a SimpleITK image with pixel type sitkFloat32.
+    """
+    reader = sitk.ImageSeriesReader()
+    dicom_names = reader.GetGDCMSeriesFileNames(directory)
+    reader.SetFileNames(dicom_names)
+    # Execute the reader to load the DICOM series
+    image = reader.Execute()
+    # Convert the loaded image to a 32-bit floating-point type
+    image = sitk.Cast(image, sitk.sitkFloat32)
+    return image
+
 
 def create_phantom_shepplogan():
     """
@@ -140,3 +161,6 @@ def transform_phantom(phantom, lesions, rotation_params, translation_params):
     transformed_lesions_1 = [translation_1.TransformPoint(p) for p in transformed_lesions_1]
     
     return transformed_phantom, transformed_lesions, transformed_lesions_1, transformed_phantom_1
+
+
+

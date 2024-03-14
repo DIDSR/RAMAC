@@ -167,7 +167,7 @@ def save_lesion_coordinates(lesion_coords, lesion_index, filename):
     
 def save_transformed_dataframe(transformed_df, output_file):
     """
-    Save Transformed DataFrame to a CSV file.
+    Save a DataFrame to a CSV file.
 
     Parameters:
         transformed_df : DataFrame
@@ -228,7 +228,46 @@ def round_coordinates_to_integer(coordinates):
         list of tuples: List of tuples with each coordinate rounded to the nearest integer.
     """
     rounded_coordinates = [(round(coord[0]), round(coord[1]), round(coord[2])) for coord in coordinates]
-    return rounded_coordinates    
+    return rounded_coordinates  
+
+def list_to_dataframe(data_list):
+    """
+    Convert a list of tuples to a DataFrame.
+
+    Parameters:
+        data_list (list): List of tuples containing data.
+
+    Returns:
+        pandas.DataFrame: DataFrame containing the data.
+    """
+    # Convert the list of tuples to a DataFrame
+    df = pd.DataFrame(data_list, columns=['x', 'y', 'z'])
+    return df
+
+
+def create_trim_dataframe(week):
+    """
+    Creates a trimmed DataFrame from the input DataFrame 'week'.
+
+    This function splits the 'Merge Centroid' column of the input DataFrame 'week' into separate 'x', 'y', and 'z' columns 
+    and copies the 'Updated Index' column into a new column named 'Index'.
+
+    Args:
+        week (pandas.DataFrame): The input DataFrame containing the data to be trimmed.
+
+    Returns:
+        pandas.DataFrame: A new DataFrame containing the trimmed data, with columns 'x', 'y', 'z', and 'Index'.
+    """
+    new_df = pd.DataFrame()
+
+    # Split 'Radiologist1_Centroid' into 'x', 'y', 'z' columns
+    new_df[['x', 'y', 'z']] = pd.DataFrame(week['Merge Centroid'].to_list(), index=week.index)
+
+    # Copy 'Row_Name' column
+    new_df['Index'] = week['Updated Index']
+
+    return new_df
+
 
 
 # In[ ]:

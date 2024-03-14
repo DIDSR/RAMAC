@@ -1,9 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 import os
 import numpy as np
 import SimpleITK as sitk
+
 import matplotlib.pyplot as plt
 from ipywidgets import interact, fixed
 from IPython.display import clear_output
@@ -90,6 +88,11 @@ def plot_values(registration_method):
     plt.ylabel('Metric Value',fontsize=12)
     plt.show()
    
+
+
+# In[17]:
+
+
 def update_multires_iterations():
     """Callback invoked when the sitkMultiResolutionIterationEvent happens, update the index into the metric_values list."""
     global metric_values, multires_iterations
@@ -244,6 +247,7 @@ def registration_3d_rigid_gradient_descent(fixed_image, moving_image):
     outTx = R.Execute(fixed_image, moving_image)
 
     print("-------")
+    #print(outTx)
     print("Optimizer stop condition: {0}".format(R.GetOptimizerStopConditionDescription()))
     print(" Iteration: {0}".format(R.GetOptimizerIteration()))
     print(" Metric value: {0}".format(R.GetMetricValue()))

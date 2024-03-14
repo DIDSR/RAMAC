@@ -14589,7 +14589,10 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li><p>Correspondence of the regions of interest is next established by an <span style="color:#A52A2A;">adaptive Hungarian</span> algorithm.</p>
 </li>
 </ul>
-<h2 id="Test-Case-Setup">Test Case Setup<a class="anchor-link" href="#Test-Case-Setup">&#182;</a></h2><p>To illustrate the functionality of the RAMAC package, we provide a test case using a dummy Sheplogan phantom. This phantom serves as the original dataset, with lesion coordinates designated as regions of interest (ROI). Here's how the test case is set up:</p>
+<h2 id="Test-Case-Setup">Test Case Setup<a class="anchor-link" href="#Test-Case-Setup">&#182;</a></h2><p><code>RAMAC</code> repository is tailored for implementation of the algorithm on <code>Monaleesa</code> Computed Tomography (CT) data set as outlined in the below paper :
+<strong><em>Image registration based automated lesion correspondence and tracking pipeline for longitudinal CT data</em></strong></p>
+<p><code>Utilize the RAMAC repository to facilitate ROI correspondence and matching in your volumetric image dataset. The package requires two volumetric images and their respective ROI coordinate information provided in CSV files as inputs.</code></p>
+<p>To illustrate the functionality of the RAMAC package, we provide a test case using a dummy Sheplogan phantom. This phantom serves as the original dataset, with lesion coordinates designated as regions of interest (ROI). Here's how the test case is set up:</p>
 <ul>
 <li><p>The Sheplogan phantom is generated using the  (termed as original phantom here) using the <strong><a href="https://github.com/mckib2/phantominator">Phantominator</a></strong> package. lesion cooridnates are placed as region of interest (ROI).</p>
 </li>
@@ -14604,6 +14607,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>Generate a dummy Sheplogan phantom using Phantominator and convert it to SimpleITK format.</li>
 <li>Apply a known transformation to create a transformed phantom and its corresponding ROI coordinates.</li>
 <li>Save the ROI coordinates in CSV format for later use.</li>
+<li>Users can use their own volumetric image dataset and corresponding ROI coordinate information as inputs.</li>
 </ul>
 <h3 id="Registration">Registration<a class="anchor-link" href="#Registration">&#182;</a></h3><ul>
 <li><p>Optionally, preprocess the images to mask out air voxels.</p>
@@ -14664,8 +14668,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../ralmac&quot;</span><span class="p">)</span>
-<span class="c1">#sys.path.append(&quot;../result&quot;)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;../ramac&quot;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">registration</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">correspondence_csv_input</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">transform_coordinates</span> <span class="kn">import</span> <span class="o">*</span>
@@ -14713,6 +14716,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 
     <span class="c1"># Create the original phantom</span>
+    <span class="c1"># Instead of creating the phantoms and placing the ROI coordinates the users can use their own image and corresponding</span>
+    <span class="c1"># CSV files as input</span>
     <span class="n">original_phantom</span><span class="p">,</span> <span class="n">original_lesions</span> <span class="o">=</span> <span class="n">create_phantom_shepplogan</span><span class="p">()</span>
     
     <span class="c1"># Define rotation and translation parameters </span>
@@ -14747,17 +14752,15 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <span class="c1"># Save the moving lesion coordinates</span>
     <span class="n">save_lesion_coordinates</span><span class="p">(</span><span class="n">transformed_lesions</span><span class="p">,</span> <span class="n">lesion_index</span><span class="p">,</span> <span class="n">filename_moving</span><span class="p">)</span>
     
-    <span class="c1">### Perform pre-processing if required</span>
+    <span class="c1">## Perform pre-processing if required</span>
     <span class="c1">#original_phantom = mask_air (original_phantom)</span>
     <span class="c1">#transformed_phantom = mask_air (transformed_phantom)</span>
     
     <span class="c1">## Apply the 3D rigid registration</span>
 
     <span class="n">moving_resampled</span><span class="p">,</span> <span class="p">[</span><span class="n">init_transform</span><span class="p">,</span> <span class="n">final_transform</span><span class="p">]</span> <span class="o">=</span> <span class="n">registration_3d_rigid_gradient_descent</span><span class="p">(</span><span class="n">original_phantom</span><span class="p">,</span> <span class="n">transformed_phantom</span><span class="p">)</span>
-
-    <span class="c1">#final_transform_1 = final_transform.GetInverse()</span>
     
-    <span class="c1">## Apply the final transform matrix to the RROI cooridnates of the transformed phantom</span>
+    <span class="c1">## Apply the final transform matrix to the ROI cooridnates of the transformed phantom</span>
 
     <span class="n">registered_coordinates</span> <span class="o">=</span> <span class="n">create_transformed_dataframe</span><span class="p">(</span><span class="n">filename_moving</span><span class="p">,</span> <span class="n">final_transform</span><span class="p">)</span>
 
@@ -14780,10 +14783,14 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     
     <span class="c1">### Visualization of the original, transformed and registered phantoms and their corresponding ROIs after registration</span>
 
-    <span class="n">transformed_lesions_rounded</span> <span class="o">=</span> <span class="n">round_coordinates_to_integer</span><span class="p">(</span><span class="n">transformed_lesions_1</span><span class="p">)</span>
+    <span class="c1">#transformed_lesions_rounded = round_coordinates_to_integer(transformed_lesions_1)</span>
 
     <span class="n">fixed_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">original_phantom</span><span class="p">,</span> <span class="n">filename_fixed</span><span class="p">)</span>
     <span class="n">fixed_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span><span class="p">(</span><span class="n">fixed_voxel</span><span class="p">)</span>
+    
+    <span class="n">transformed_lesions_rounded</span> <span class="o">=</span> <span class="n">list_to_dataframe</span><span class="p">(</span><span class="n">transformed_lesions_1</span><span class="p">)</span>
+    <span class="n">transformed_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">transformed_phantom_1</span><span class="p">,</span> <span class="n">transformed_lesions_rounded</span><span class="p">)</span>
+    <span class="n">transformed_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span> <span class="p">(</span><span class="n">transformed_voxel</span><span class="p">)</span>
 
     <span class="n">registered_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">moving_resampled</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">)</span>
     <span class="n">registered_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span><span class="p">(</span><span class="n">registered_voxel</span><span class="p">)</span>
@@ -14793,7 +14800,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
     <span class="c1">#plot_lesions_1 (original_phantom, transformed_phantom_1, moving_resampled, fixed_voxel_tuples, transformed_lesions_rounded, registered_voxel_tuples)</span>
     
     <span class="n">plot_lesions</span><span class="p">((</span><span class="n">original_phantom</span><span class="p">,</span> <span class="n">fixed_voxel_tuples</span><span class="p">),</span>
-             <span class="p">(</span><span class="n">transformed_phantom_1</span><span class="p">,</span> <span class="n">transformed_lesions_rounded</span><span class="p">),</span>
+             <span class="p">(</span><span class="n">transformed_phantom_1</span><span class="p">,</span> <span class="n">transformed_voxel_tuples</span><span class="p">),</span>
              <span class="p">(</span><span class="n">moving_resampled</span><span class="p">,</span> <span class="n">registered_voxel_tuples</span><span class="p">))</span>
     
     
@@ -14983,6 +14990,124 @@ class="
 
 </div>
 
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The following function provides a convenient format for users to establish correspondence within their own volumetric image datasets. By simply providing the directory path containing the images and the corresponding Region of Interest (ROI) coordinate information, users can effortlessly establish the necessary correspondence.</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">test_custom_data</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform a test using custom data.</span>
+
+<span class="sd">    This function shows the process to load DICOM series for longitudinal image data at two timepoints,</span>
+<span class="sd">    performs rigid 3D registration,perform adaaptive hungarian and saves result files, and plots</span>
+<span class="sd">    triplanar views of the images.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        Any relevant exceptions encountered during execution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">Screening_image</span> <span class="o">=</span> <span class="n">load_dicom_series</span><span class="p">(</span><span class="s1">&#39;Directory 1&#39;</span><span class="p">)</span> <span class="c1">## User needs to give the directory path</span>
+    <span class="n">Week_8_image</span> <span class="o">=</span> <span class="n">load_dicom_series</span><span class="p">(</span><span class="s1">&#39;Directory 2&#39;</span><span class="p">)</span>
+    
+    <span class="c1">## Preprocess the images if needed</span>
+    <span class="n">fixed_image</span> <span class="o">=</span> <span class="n">mask_air</span><span class="p">(</span><span class="n">Screening_image</span><span class="p">)</span>
+    <span class="n">moving_image</span> <span class="o">=</span> <span class="n">mask_air</span><span class="p">(</span><span class="n">Week_8_image</span><span class="p">)</span>
+    <span class="c1"># # Apply the 3D rigid registration</span>
+    <span class="n">moving_resampled</span><span class="p">,</span> <span class="p">[</span><span class="n">init_transform</span><span class="p">,</span> <span class="n">final_transform</span><span class="p">]</span> <span class="o">=</span> <span class="n">registration_3d_rigid_series</span><span class="p">(</span><span class="n">fixed_image</span><span class="p">,</span> <span class="n">moving_image</span><span class="p">)</span>
+
+    <span class="n">result_folder</span> <span class="o">=</span> <span class="s2">&quot;monaleesa&quot;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Create the result folder if it doesn&#39;t exist</span>
+
+    <span class="c1"># File paths for saving CSV files which contains the ROI coordinates as inputs in CSV format</span>
+    
+    <span class="n">filename_fixed_R1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;df_lesions_Screening_1.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_fixed_R2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;df_lesions_Screening_2.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_moving_R1</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;df_lesions_Week_8_1.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_moving_R2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;df_lesions_Week_8_2.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1">## Apply Adaptive Hungarian</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">correspondences_screening</span><span class="p">,</span> <span class="n">unmatched_names_df1_screening</span><span class="p">,</span> <span class="n">unmatched_names_df2_screening</span> <span class="o">=</span> <span class="n">process_lesion_timepoints</span><span class="p">(</span><span class="n">filename_fixed_R1</span><span class="p">,</span> <span class="n">filename_fixed_R2</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">plot_lesion_correspondences_timepoints</span><span class="p">(</span><span class="n">filename_fixed_R1</span><span class="p">,</span> <span class="n">filename_fixed_R2</span><span class="p">)</span>
+    <span class="n">final_df_screening</span> <span class="o">=</span> <span class="n">create_final_dataframe_timepoints</span><span class="p">(</span><span class="n">correspondences_screening</span><span class="p">,</span> <span class="n">unmatched_names_df1_screening</span><span class="p">,</span> <span class="n">unmatched_names_df2_screening</span><span class="p">,</span> <span class="n">filename_fixed_R1</span><span class="p">,</span> <span class="n">filename_fixed_R2</span><span class="p">)</span>
+
+    <span class="n">correspondences_week_8</span><span class="p">,</span> <span class="n">unmatched_names_df1_week_8</span><span class="p">,</span> <span class="n">unmatched_names_df2_week_8</span> <span class="o">=</span> <span class="n">process_lesion_timepoints</span><span class="p">(</span><span class="n">filename_moving_R1</span><span class="p">,</span> <span class="n">filename_moving_R2</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">plot_lesion_correspondences_timepoints</span><span class="p">(</span><span class="n">filename_moving_R1</span><span class="p">,</span> <span class="n">filename_moving_R2</span><span class="p">)</span>
+    <span class="n">final_df_week_8</span> <span class="o">=</span> <span class="n">create_final_dataframe_timepoints</span><span class="p">(</span><span class="n">correspondences_week_8</span><span class="p">,</span> <span class="n">unmatched_names_df1_week_8</span><span class="p">,</span> <span class="n">unmatched_names_df2_week_8</span><span class="p">,</span> <span class="n">filename_moving_R1</span><span class="p">,</span> <span class="n">filename_moving_R2</span><span class="p">)</span>
+
+    <span class="n">final_df_S</span> <span class="o">=</span> <span class="n">create_trim_dataframe</span><span class="p">(</span><span class="n">final_df_screening</span><span class="p">)</span>
+    <span class="n">final_df_8</span> <span class="o">=</span> <span class="n">create_trim_dataframe</span><span class="p">(</span><span class="n">final_df_week_8</span><span class="p">)</span>
+    
+    <span class="c1">## Save the dataframes of the ROI coordiantes in CSV format</span>
+    <span class="n">filename_fixed</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;fixed_coordinates.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_moving</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;moving_coordinates.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_registered</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;registered_coordinates.csv&#39;</span><span class="p">)</span>
+    <span class="n">filename_correspondence</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result_folder</span><span class="p">,</span> <span class="s1">&#39;correspondence_indices.csv&#39;</span><span class="p">)</span>
+
+    <span class="n">save_transformed_dataframe</span><span class="p">(</span><span class="n">final_df_S</span><span class="p">,</span> <span class="n">filename_fixed</span><span class="p">)</span>
+    <span class="n">save_transformed_dataframe</span><span class="p">(</span><span class="n">final_df_8</span><span class="p">,</span> <span class="n">filename_moving</span><span class="p">)</span>
+    <span class="c1">## Apply the transformation matrix on ROI cooridnates of moving image (Image B) to obtain registered ROI cooridnates</span>
+    <span class="n">final_transform_1</span> <span class="o">=</span> <span class="n">final_transform</span><span class="o">.</span><span class="n">GetInverse</span><span class="p">()</span>
+
+    <span class="n">registered_coordinates</span> <span class="o">=</span> <span class="n">create_transformed_dataframe</span><span class="p">(</span><span class="n">filename_moving</span><span class="p">,</span> <span class="n">final_transform_1</span><span class="p">)</span>
+    <span class="n">save_transformed_dataframe</span><span class="p">(</span><span class="n">registered_coordinates</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">)</span>
+    
+    <span class="c1">## Apply Adaptive Hungarian on the fixed ROI cooridnates and registered coordinates</span>
+    <span class="n">threshold</span> <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">correspondences</span><span class="p">,</span> <span class="n">unmatched_names_df1</span><span class="p">,</span> <span class="n">unmatched_names_df2</span> <span class="o">=</span> <span class="n">process_lesion_timepoints</span><span class="p">(</span><span class="n">filename_fixed</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+    <span class="n">plot_lesion_correspondences_timepoints</span><span class="p">(</span><span class="n">filename_fixed</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">)</span>
+    <span class="n">final_df</span> <span class="o">=</span> <span class="n">create_final_dataframe_timepoints</span><span class="p">(</span><span class="n">correspondences</span><span class="p">,</span> <span class="n">unmatched_names_df1</span><span class="p">,</span> <span class="n">unmatched_names_df2</span><span class="p">,</span> <span class="n">filename_fixed</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">)</span>
+    
+    <span class="c1">## Saving the final correspondence thereby achieved in a CSV format</span>
+    <span class="n">df_transformed</span> <span class="o">=</span> <span class="n">merge_indices</span><span class="p">(</span><span class="n">final_df</span><span class="p">)</span>
+    <span class="n">df_transformed</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filename_correspondence</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    
+    <span class="c1">## Transform the ROI coordinates from physical to voxel unit for plotting</span>
+
+    <span class="n">fixed_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">fixed_image</span><span class="p">,</span> <span class="n">filename_fixed</span><span class="p">)</span>
+    <span class="n">fixed_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span><span class="p">(</span><span class="n">fixed_voxel</span><span class="p">)</span>
+    <span class="n">moving_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">moving_image</span><span class="p">,</span> <span class="n">filename_moving</span><span class="p">)</span>
+    <span class="n">moving_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span><span class="p">(</span><span class="n">moving_voxel</span><span class="p">)</span>
+    <span class="n">registered_voxel</span> <span class="o">=</span> <span class="n">transform_physical_to_index</span><span class="p">(</span><span class="n">moving_resampled</span><span class="p">,</span> <span class="n">filename_registered</span><span class="p">)</span>
+    <span class="n">registered_voxel_tuples</span> <span class="o">=</span> <span class="n">voxel_tuples_from_dataframe</span><span class="p">(</span><span class="n">registered_voxel</span><span class="p">)</span>
+    
+    <span class="c1">## Triplanar visualization after registration</span>
+
+    <span class="n">window_level</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">window_width</span> <span class="o">=</span> <span class="mi">2000</span>
+
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">fixed_image</span><span class="p">,</span> <span class="n">moving_image</span><span class="p">,</span> <span class="n">moving_resampled</span><span class="p">]</span>
+    <span class="n">voxel_tuples_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">fixed_voxel_tuples</span><span class="p">,</span> <span class="n">moving_voxel_tuples</span><span class="p">,</span> <span class="n">registered_voxel_tuples</span><span class="p">]</span>
+    <span class="n">image_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Fixed&#39;</span><span class="p">,</span> <span class="s1">&#39;Moving&#39;</span><span class="p">,</span> <span class="s1">&#39;Registered&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">image</span><span class="p">,</span> <span class="n">voxel_tuples</span><span class="p">,</span> <span class="n">image_name</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">voxel_tuples_list</span><span class="p">,</span> <span class="n">image_names</span><span class="p">):</span>
+        <span class="n">plot_triplanar</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">voxel_tuples</span><span class="p">,</span> <span class="n">window_level</span><span class="p">,</span> <span class="n">window_width</span><span class="p">,</span> <span class="n">image_name</span><span class="p">)</span>
+
+
+<span class="n">test_custom_data</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
 </div>
 
 </div>
