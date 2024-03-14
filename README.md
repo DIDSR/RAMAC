@@ -9,11 +9,12 @@ It is originally developed as part of the FDA-Novartis collaboration to analyze 
 
 You can install `RAMAC` from source available on GitHub. If you prefer, you can clone it and run the `setup.py` file. Use the following commands to get a copy from GitHub and install all dependencies:
 
+Once installed, you can run the test script from the `test` folder.
+
+![Overview](ramac_overview.png)
+
 ```bash
 git clone https://github.com/DIDSR/RAMAC.git
 cd RAMAC
 pip install .
 
-Once installed, you can run the test script from the `test` folder.
-
-![Overview](ramac_overview.png)
