@@ -1,9 +1,6 @@
 ramac package
 =============
 
-Submodules
-----------
-
 ramac.correspondence\_csv\_input module
 ---------------------------------------
 
@@ -68,10 +65,3 @@ ramac.utils module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
-
-.. automodule:: ramac
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
 
 
 import numpy as np
@@ -157,6 +153,9 @@ def save_lesion_coordinates(lesion_coords, lesion_index, filename):
         lesion_coords (list of tuples): List of lesion coordinates (x, y, z).
         lesion_index (list of int): List of lesion indices.
         filename (str): The filename for the CSV file.
+        
+    Returns:
+        None
     """
     df = pd.DataFrame({'x': [coord[0] for coord in lesion_coords],
                        'y': [coord[1] for coord in lesion_coords],
@@ -269,8 +268,6 @@ def create_trim_dataframe(week):
     return new_df
 
 
-
-# In[ ]:
 
 
 

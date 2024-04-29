@@ -32,13 +32,10 @@ def create_phantom_shepplogan():
     """
     Creates a Shepp-Logan test phantom with two inserted lesions
 
-    Parameters
-    ----------
-    None.
-
     Returns
     -------
     phantom: sitk.Image
+        The generated Shepp-Logan test phantom and the sitk cordinates of lesions
 
     """
     

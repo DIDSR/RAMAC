@@ -23,5 +23,7 @@ setuptools.setup(
                       'pandas',
                       'phantominator',
                       'SimpleITK',
-                      'matplotlib']
+                      'matplotlib',
+                      'ipywidgets',
+                      'ipykernel']
 )

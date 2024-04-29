@@ -1,7 +1,9 @@
+
+
 import os
 import numpy as np
 import SimpleITK as sitk
-
+#get_ipython().run_line_magic('matplotlib', 'inline')
 import matplotlib.pyplot as plt
 from ipywidgets import interact, fixed
 from IPython.display import clear_output
@@ -16,6 +18,9 @@ def display_images(fixed_image_z, moving_image_z, fixed_npa, moving_npa):
         moving_image_z (int): The index of the slice to be displayed from the moving image stack.
         fixed_npa (numpy.ndarray): The numpy array representing the fixed image stack.
         moving_npa (numpy.ndarray): The numpy array representing the moving image stack.
+        
+    Returns:
+        None
     """
     # Create a figure with two subplots and the specified size.
     plt.subplots(1,2,figsize=(10,8))
@@ -44,6 +49,10 @@ def display_images_with_alpha(image_z, alpha, fixed, moving):
         alpha (float): The alpha blending parameter.
         fixed (SimpleITK.Image): The fixed image.
         moving (SimpleITK.Image): The moving image.
+        
+    Returns:
+        None
+
     """
     img = (1.0 - alpha)*fixed[:,:,image_z] + alpha*moving[:,:,image_z] 
     plt.imshow(sitk.GetArrayViewFromImage(img),cmap=plt.cm.Greys_r);
@@ -52,7 +61,12 @@ def display_images_with_alpha(image_z, alpha, fixed, moving):
 
 
 def start_plot():
-    """Callback invoked when the StartEvent happens, sets up our new data."""
+    """
+    Callback invoked when the StartEvent happens, sets up our new data.
+    
+    Returns:
+        None
+    """
     global metric_values, multires_iterations
     
     metric_values = []
@@ -60,7 +74,12 @@ def start_plot():
 
 
 def end_plot():
-    """Callback invoked when the EndEvent happens, do cleanup of data and figure."""
+    """
+    Callback invoked when the EndEvent happens, do cleanup of data and figure.
+    
+    Returns:
+        None
+    """
     global metric_values, multires_iterations
     
     del metric_values
@@ -75,6 +94,9 @@ def plot_values(registration_method):
     
     Parameters:
         registration_method: The registration method.
+        
+    Returns:
+        None
     """
     global metric_values, multires_iterations
     
@@ -94,7 +116,12 @@ def plot_values(registration_method):
 
 
 def update_multires_iterations():
-    """Callback invoked when the sitkMultiResolutionIterationEvent happens, update the index into the metric_values list."""
+    """
+    Callback invoked when the sitkMultiResolutionIterationEvent happens, update the index into the metric_values list.
+    
+    Returns:
+        None
+    """
     global metric_values, multires_iterations
     multires_iterations.append(len(metric_values))
 

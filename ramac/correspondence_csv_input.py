@@ -97,12 +97,32 @@ def find_corresponding_lesions_timepoints(df1_file, df2_file, threshold):
     return correspondences, unmatched_index_df1, unmatched_index_df2
 
 def process_lesion_timepoints(screening_file, transformed_file, threshold):
+    """
+    Process lesion timepoints to find corresponding lesions.
+
+    Parameters:
+        screening_file : str
+            Filepath of the screening data.
+        transformed_file : str
+            Filepath of the transformed data.
+        threshold : float
+            Threshold value for finding corresponding lesions.
+
+    Returns:
+        correspondences : DataFrame
+            DataFrame containing correspondences between lesions.
+        unmatched_names_df1 : DataFrame
+            DataFrame containing unmatched lesions from screening data.
+        unmatched_names_df2 : DataFrame
+            DataFrame containing unmatched lesions from transformed data.
+    """
     correspondences, unmatched_names_df1, unmatched_names_df2 = find_corresponding_lesions_timepoints(
         screening_file, transformed_file, threshold
     )
 
     # Return the results
     return correspondences, unmatched_names_df1, unmatched_names_df2
+
 
 def plot_lesion_correspondences_timepoints(df1_file, df2_file):
     """
@@ -111,6 +131,9 @@ def plot_lesion_correspondences_timepoints(df1_file, df2_file):
     Parameters:
         df1_file (str): The file path to the first set of lesions or ROIs.
         df2_file (str): The file path to the second set of lesions or ROIs.
+        
+    Returns:
+        None
     """
     # Calculate correspondences and unmatched names
     correspondences, unmatched_names_df1, unmatched_names_df2 = find_corresponding_lesions_timepoints(df1_file, df2_file, threshold=30)

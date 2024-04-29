@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import SimpleITK as sitk
 from mpl_toolkits.mplot3d import Axes3D
-from ipywidgets import interact, IntSlider, fixed
+#from ipywidgets import interact, IntSlider, fixed
 
-from IPython.display import display, Markdown
+#from IPython.display import display, Markdown
 
 def plot_slices_interactive(image, slice_x, slice_y, slice_z):
     """
@@ -251,9 +251,8 @@ def plot_lesions(*args):
             image (SimpleITK.Image): The image to visualize.
             voxel_tuples (list): List of tuples containing voxel coordinates of lesions in the image.
 
-    Returns:
-        None
-        
+   Returns:
+       None
     """
     
     num_sets = len(args)
@@ -309,6 +308,9 @@ def plot_triplanar(image, voxel_tuples, window_level, window_width, image_name):
         window_level (float): The window level for image visualization.
         window_width (float): The window width for image visualization.
         image_name (str): The name of the image to be displayed in the plot.
+        
+    Returns:
+        None
     """
     num_lesions = len(voxel_tuples)
     fig, axs = plt.subplots(num_lesions, 3, figsize=(15, 5 * num_lesions))
@@ -346,6 +348,9 @@ def plot_slice(ax, slice_array, centroid, title, aspect, slice_number, window_le
         window_level (float): The window level for image visualization.
         window_width (float): The window width for image visualization.
         flip (bool, optional): Whether to flip the slice array vertically. Defaults to False.
+        
+     Returns:
+       None
     """
     if flip:
         slice_array = np.flipud(slice_array)
