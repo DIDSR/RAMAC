@@ -1,4 +1,4 @@
-**Registration-based Automated Matching and Correspondence (RAMAC)** is a tool for identify corresponding annotated regions of interest in a sequence of volumetric images.
+**Registration-based Automated Matching and Correspondence (RAMAC)** is a tool for identifying corresponding annotated regions of interest in a sequence of volumetric images.
 
 This repository contains code used in the paper:
 **_Image registration based automated lesion correspondence pipeline for longitudinal CT data_**
@@ -9,7 +9,7 @@ In this guide, we present a comprehensive overview of the `Registration-based Au
 
 ## A Brief Introduction
 
-The RAMAC is a software tool that streamlines the process of automating matching and establishing correspondence between longitudinal medical image datasets. It consists of a two-phase sequential pipeline, combining registration and correspondence algorithms to efficiently analyze and thereby establish correspondence. For example, in a longitudinal imaging study, multiple lesions may be annotated across many DICOM image series. This tool may be used to find corresponding annotations in all image series that correspond to same lesion.
+RAMAC is a software tool that streamlines the process of automating matching and establishing correspondence between longitudinal medical image datasets. It consists of a two-phase sequential pipeline, combining registration and correspondence algorithms to efficiently analyze and thereby establish correspondence. For example, in a longitudinal imaging study, multiple lesions may be annotated across many DICOM image series. This tool may be used to find corresponding annotations in all image series that correspond to same lesion.
 
 ## Algorithm Overview
 
@@ -18,8 +18,8 @@ The RAMAC algorithm comprises of a two-phase sequential Pipeline:
 
 - Correspondence of the regions or landmarks of interest is next established by an *adaptive Hungarian* algorithm.
 
-The algorithm expects volumetric images and coordinates of landmarks as **inputs**. The landmark coordinates can be inputted using stored _comma-separated values (CSV)_ files. The tool converts the input images to SimpleITK format and the ladmark cooridnates to physical coordinates. Image registration is performed next.
-For example, in the `Overview` figure of RAMAC below, image registration is performed on the input images with one designated as fixed image (Image A) and other as moving (Image B). Currently RAMAC supports rigid registration using stochastic gradient descent as optimzer and linear interpolant. This workflow generates a transform $T_{BA}$ that is applied to the landmark coordinates in the moving image to produce transformed coordinates. The transformed coordinates are then matched with landmark coordinates in fixed image using the adaptive Hungarian algorithm. As **outputs** users can observe correspondences in stored _comma-separated values (CSV)_ files. The region-of-interest (ROIs) of the corresponding landmarks can also be plotted with RAMAC for visual inspection of the results. There may be cases where a corresponding landmark doesnot exist in one of the images. In such cases RAMAC assign the corresponding landmarks as 'Unmatched' to indicate unique landmarks. 
+The algorithm expects volumetric images and coordinates of landmarks as **inputs**. The landmark coordinates can be inputted using stored _comma-separated values (CSV)_ files. The tool converts the input images to SimpleITK format and the landmark cooridnates to physical coordinates. Image registration is performed next.
+For example, in the `Overview` figure of RAMAC below, image registration is performed on the input images with one designated as fixed image (Image A) and other as moving (Image B). Currently RAMAC supports rigid registration using stochastic gradient descent as optimzer and linear interpolant. This workflow generates a transform sthat is applied to the landmark coordinates in the moving image to produce transformed coordinates. The transformed coordinates are then matched with landmark coordinates in fixed image using the adaptive Hungarian algorithm. As **outputs** users can observe correspondences in stored _CSV_ files. The region-of-interest (ROIs) of the corresponding landmarks can also be plotted with RAMAC for visual inspection of the results. There may be cases where a corresponding landmark does not exist in one of the images. In such cases RAMAC assign the corresponding landmarks as 'Unmatched' to indicate unique landmarks. 
 
 ![Overview](ramac_overview.png)
 
