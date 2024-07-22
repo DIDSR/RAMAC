@@ -1,6 +1,6 @@
-**Registration-based Automated Matching and Correspondence (RAMAC)** is a tool for identifying corresponding annotated regions of interest in a sequence of volumetric images.
+# **Registration-based Automated Matching and Correspondence (RAMAC)** 
 
-It is originally developed as part of the FDA-Novartis collaboration to analyze correspondence of metastatic breast lesions in a longitudinal imaging study.
+RAMAC is a tool for identifying corresponding annotated regions of interest in a sequence of volumetric images. It is originally developed as part of the FDA-Novartis collaboration to analyze correspondence of metastatic breast lesions in a longitudinal imaging study.
 
 In this guide, we present a comprehensive overview of the `Registration-based Automated Matching and Correspondence (RAMAC) package`.
 
@@ -38,7 +38,7 @@ pip install .
 
 ## Getting Started
 
-User manual and examples can be found in the ![RAMAC Documentation][https://ramac.readthedocs.io/en/latest/] pages.
+User manual and examples can be found in the [RAMAC Documentation][https://ramac.readthedocs.io/en/latest/] pages.
 
 ## Authors
 - Subrata Mukherjee
