@@ -38,7 +38,7 @@ pip install .
 
 ## Getting Started
 
-User manual and examples can be found in the [RAMAC Documentation][https://ramac.readthedocs.io/en/latest/] pages.
+User manual and examples can be found in the [RAMAC Documentation](https://ramac.readthedocs.io/en/latest/) pages.
 
 ## Authors
 - Subrata Mukherjee
