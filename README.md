@@ -1,13 +1,10 @@
 **Registration-based Automated Matching and Correspondence (RAMAC)** is a tool for identifying corresponding annotated regions of interest in a sequence of volumetric images.
 
-This repository contains code used in the paper:
-**_Image registration based automated lesion correspondence pipeline for longitudinal CT data_**
-
 It is originally developed as part of the FDA-Novartis collaboration to analyze correspondence of metastatic breast lesions in a longitudinal imaging study.
 
 In this guide, we present a comprehensive overview of the `Registration-based Automated Matching and Correspondence (RAMAC) package`.
 
-## A Brief Introduction
+## TL; DR
 
 RAMAC is a software tool that streamlines the process of automating matching and establishing correspondence between longitudinal medical image datasets. It consists of a two-phase sequential pipeline, combining registration and correspondence algorithms to efficiently analyze and thereby establish correspondence. For example, in a longitudinal imaging study, multiple lesions may be annotated across many DICOM image series. This tool may be used to find corresponding annotations in all image series that correspond to same lesion.
 
@@ -38,7 +35,12 @@ git clone https://github.com/DIDSR/RAMAC.git
 cd RAMAC
 pip install .
 ```
-## Citation for this tool
+
+## Getting Started
+
+User manual and examples can be found in the ![RAMAC Documentation][https://ramac.readthedocs.io/en/latest/] pages.
+
+## Authors
 - Subrata Mukherjee
 - Qian Cao
 
