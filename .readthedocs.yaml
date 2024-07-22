@@ -10,7 +10,7 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
-    myst-parser
+    myst-parser: "3.0.1"
     
 
 # Build documentation in the "docs/" directory with Sphinx
