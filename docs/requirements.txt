@@ -7,3 +7,11 @@ myst-parser
 sphinx-autodocgen
 nbsphinx
 sphinx-autopackagesummary
+
+numpy
+pandas
+phantominator
+SimpleITK
+matplotlib
+ipywidgets
+ipykernel
