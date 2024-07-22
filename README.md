@@ -39,7 +39,8 @@ cd RAMAC
 pip install .
 ```
 ## Citation for this tool
-Subrata Mukherjee, Qian Cao [Source Code](https://github.com/DIDSR/RAMAC/)
+- Subrata Mukherjee
+- Qian Cao
 
 ## Cite
 
